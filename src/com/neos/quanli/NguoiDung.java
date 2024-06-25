@@ -1,6 +1,18 @@
-public class Nguoidung {
-    DiaDiemDL[] dsDDDL;
-    QuanNgon[] dsQuanNgon;
+package com.neos.quanli;
+
+import com.neos.dulich.DiaDiemDL;
+import com.neos.dulich.QuanNgon;
+
+import java.util.ArrayList;
+
+public class NguoiDung {
+    private ArrayList<DiaDiemDL> listDiaDiemDL;
+    private ArrayList<QuanNgon> listQuanNgon;
+
+    public NguoiDung() {
+        listDiaDiemDL = new ArrayList<DiaDiemDL>();
+        listQuanNgon = new ArrayList<QuanNgon>();
+    }
 
     void themDDDL(DiaDiemDL gTriDDDL) {
         // nhập thông tin địa điêm du lịch để thêm vào dsDDDL[]
