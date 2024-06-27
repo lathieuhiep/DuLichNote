@@ -13,4 +13,24 @@ public class QuanNgon {
         this.dacSan = dacSan;
         this.khoangCach = khoangCach;
     }
+
+    public String getMaDDDL() {
+        return maDDDL;
+    }
+
+    public String getMaQN() {
+        return maQN;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public double getKhoangCach() {
+        return khoangCach;
+    }
 }

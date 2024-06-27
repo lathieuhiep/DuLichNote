@@ -4,54 +4,99 @@ import com.neos.dulich.DiaDiemDL;
 import com.neos.dulich.QuanNgon;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class NguoiDung {
-    private ArrayList<DiaDiemDL> listDiaDiemDL;
-    private ArrayList<QuanNgon> listQuanNgon;
+    private ArrayList<DiaDiemDL> danhSachDiaDiem;
+    private ArrayList<QuanNgon> danhSachQuanNgon;
 
     public NguoiDung() {
-        listDiaDiemDL = new ArrayList<DiaDiemDL>();
-        listQuanNgon = new ArrayList<QuanNgon>();
+        danhSachDiaDiem = new ArrayList<DiaDiemDL>();
+        danhSachQuanNgon = new ArrayList<QuanNgon>();
     }
 
-    void themDDDL(DiaDiemDL gTriDDDL) {
-        // nhập thông tin địa điêm du lịch để thêm vào dsDDDL[]
+    public void themDiaDiem(DiaDiemDL diaDiem) {
+        danhSachDiaDiem.add(diaDiem);
     }
 
-    void xoaDDDL(String gTriMaDDDL) {
-        // tìm trong dsDDDL[] nếu DiaDiemDL->ma = gTriMaDDDL thi xóa khỏi danh sách
+    public void xoaDiaDiem(String maDiaDiem) {
+        for (int i = 0; i < danhSachDiaDiem.size(); i++) {
+            DiaDiemDL diaDiemDL = danhSachDiaDiem.get(i);
+
+            if ( diaDiemDL.getMa().equals(maDiaDiem) ) {
+                danhSachDiaDiem.remove(diaDiemDL);
+            }
+        }
     }
 
-    void themQN(QuanNgon gTriQuanNgon) {
-        // nhập thông tin quán ngon để thêm vào dsQuanNgon[]
+    public void themQuanNgon(QuanNgon quanNgon) {
+        danhSachQuanNgon.add(quanNgon);
     }
 
-    void xoaQN(String gTriMaQN) {
-        // tìm trong dsQuanNgon nếu QuanNgon->maQN = gTriMaQN thi xóa khỏi danh sách
+    public void xoaQuanNgon(String maQuan) {
+        for (int i = 0; i < danhSachQuanNgon.size(); i++) {
+            QuanNgon quanNgon = danhSachQuanNgon.get(i);
+
+            if (quanNgon.getMaQN().equals(maQuan)) {
+                danhSachQuanNgon.remove(quanNgon);
+            }
+        }
     }
 
-    QuanNgon timKiemQN(String gTriMaDDDL) {
-        QuanNgon dsKQQN = null;
+    public ArrayList<DiaDiemDL> hienThiDiaDiemDaDiQua() {
+        ArrayList<DiaDiemDL> diaDiemDaDiQua = new ArrayList<DiaDiemDL>();
 
-        // tìm trong dsQuanNgon nếu QuanNgon->maDDDL = gTriMaDDDL thì thêm vào dsKQQN
+        for (int i = 0; i < danhSachDiaDiem.size(); i++) {
+            DiaDiemDL diaDiemDL = danhSachDiaDiem.get(i);
+
+            if ( diaDiemDL.getNgayCheckOut() != null ) {
+                diaDiemDaDiQua.add(diaDiemDL);
+            }
+        }
+
+        return diaDiemDaDiQua;
+    }
+
+    public ArrayList<QuanNgon> timQuanNgonTheoDiaDiem(String maDiaDiem) {
+        ArrayList<QuanNgon> dsKQQN = new ArrayList<QuanNgon>();
+
+        for (int i = 0; i < danhSachQuanNgon.size(); i++) {
+            QuanNgon quanNgon = danhSachQuanNgon.get(i);
+
+            if ( quanNgon.getMaDDDL().equals(maDiaDiem) ) {
+                dsKQQN.add(quanNgon);
+            }
+        }
 
         return dsKQQN;
     }
 
-    void sapXepQuanNgon(String gTriMaDDDL) {
-        QuanNgon dsSXQN = null;
+    public void sapXepQuanNgonTheoKhoangCach(String maDiaDiem) {
+        ArrayList<QuanNgon> dsSXQN = timQuanNgonTheoDiaDiem(maDiaDiem);
 
-        // tìm trong dsQuanNgon theo điều kiện QuanNgon->maDDDL = gTriMaDDDL
-        // thi luu vao dsSXQN
-        // Sắp xếp theo QuanNgon->khoangCach từ gần đến xa trong dsSXQN
-        // Duyet tung QuanNgon trong dsSXQN, QuanNgon->inTT()
-    }
+        if (!dsSXQN.isEmpty()) {
+            Collections.sort(dsSXQN, new Comparator<QuanNgon>() {
+                @Override
+                public int compare(QuanNgon quanNgon1, QuanNgon quanNgon2) {
+                    return Double.compare(quanNgon1.getKhoangCach(), quanNgon2.getKhoangCach());
+                }
+            });
 
-    void hienThiDDDLDaDiQua() {
-        // in ra thông địa điểm du lịch đã đi qua theo điều kiện DiaDiemDL->ngayCheckOut không null
-    }
+            for (int i = 0; i < dsSXQN.size(); i++) {
+                QuanNgon quanNgon = dsSXQN.get(i);
 
-    void inDSQuanNgon() {
-        // Duyet tung QuanNgon trong dsQN, QuanNgon->inTT()
+                System.out.println(
+                    quanNgon.getTen()
+                    + " - địa chỉ: "
+                    + quanNgon.getDiaChi()
+                    + " - khoảng cách: "
+                    + quanNgon.getKhoangCach() + "km"
+                );
+            }
+        } else {
+            System.out.println("Địa điểm này chưa có danh sách quán ngon");
+        }
     }
 }

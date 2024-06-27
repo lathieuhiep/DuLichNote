@@ -1,15 +1,24 @@
 package com.neos.dulich;
 
-public class DiaDiemDL {
-    private String ma, ten, moTa, diaChi, ghiChu, ngayCheckIn, ngayCheckOut;
+import java.time.LocalDate;
 
-    public DiaDiemDL(String ma, String ten, String moTa, String diaChi, String ghiChu, String ngayCheckIn, String ngayCheckOut) {
+public class DiaDiemDL {
+    private String ma, ten, moTa, diaChi, ghiChu;
+    private LocalDate ngayCheckIn, ngayCheckOut;
+
+    public DiaDiemDL(String ma, String ten, String moTa, String diaChi, String ghiChu) {
         this.ma = ma;
         this.ten = ten;
         this.moTa = moTa;
         this.diaChi = diaChi;
         this.ghiChu = ghiChu;
+    }
+
+    public void setNgayCheckIn(LocalDate ngayCheckIn) {
         this.ngayCheckIn = ngayCheckIn;
+    }
+
+    public void setNgayCheckOut(LocalDate ngayCheckOut) {
         this.ngayCheckOut = ngayCheckOut;
     }
 
@@ -17,9 +26,21 @@ public class DiaDiemDL {
         return ma;
     }
 
+    public String getTen() {
+        return ten;
+    }
+
+    public LocalDate getNgayCheckIn() {
+        return ngayCheckIn;
+    }
+
+    public LocalDate getNgayCheckOut() {
+        return ngayCheckOut;
+    }
+
     @Override
     public String toString() {
-        return "Địa điểm du lịch" +
+        return "Địa điểm du lịch\n" +
                 "Mã địa điểm: " + ma + "\n" +
                 "Tên: " + ten + "\n" +
                 "Mô tả: " + moTa + "\n" +
